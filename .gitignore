@@ -1,0 +1,48 @@
+# Raw datasets — NEVER upload original training CSV or copies
+indian-market-historical-ohlcv.csv
+*ohlcv*.csv
+*.csv
+!sp05_conservative_artifacts/training_history.csv
+!sp05_conservative_artifacts/equity_curve.csv
+*.parquet
+*.h5
+*.hdf5
+*.zip
+
+# Intermediate training checkpoints (final model lives in sp05_conservative_artifacts/conservative_policy.pt)
+checkpoints/
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Jupyter & IDE artifacts
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+*.tmp
+*.log
+
+# Secrets & credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+secrets.*
+
+# Local working/recovery notes not needed for deployment
+PROGRESS_REPORT.md
+05_conservative_policy.ipynb
+
+# Avoid duplicate module copies inside artifacts folder (canonical modules live in repo root)
+sp05_conservative_artifacts/sp05_features.py
+sp05_conservative_artifacts/sp05_model.py
+sp05_conservative_artifacts/sp05_risk.py

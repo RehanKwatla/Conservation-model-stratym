@@ -1,0 +1,121 @@
+{
+  "model_name": "SP-05 Conservative Risk-Aware Policy",
+  "policy_id": "SP-05",
+  "version": "1.0.0",
+  "artifact": "conservative_policy.pt",
+  "seq_len": 30,
+  "allow_short": true,
+  "temperature": 1.22138512134552,
+  "model": {
+    "n_features": 43,
+    "n_static": 12,
+    "n_actions": 4,
+    "encoder": "gru",
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.25,
+    "static_hidden": 16,
+    "head_hidden": 64
+  },
+  "action_space": {
+    "0": "HOLD",
+    "1": "BUY",
+    "2": "SELL",
+    "3": "EXIT"
+  },
+  "label_source": "strategy_derived_proxy (conservative objective, decision-time)",
+  "label_definition": {
+    "information": "decision-time only (causal features, position, P&L, holding, portfolio state, profile)",
+    "future_prices_used": false,
+    "objective": {
+      "w_return": 1.0,
+      "w_drawdown": 1.0,
+      "w_turnover": 0.3,
+      "entry_threshold": 0.3,
+      "exit_threshold": -0.25,
+      "short_penalty": 0.2
+    },
+    "soft_limits": {
+      "portfolio_drawdown": 0.05,
+      "gross_exposure": 0.5,
+      "recent_loss": 0.04,
+      "vol_exit_percentile": 0.9,
+      "abnormal_ret_z": 3.0,
+      "gap_atr": 2.5,
+      "market_stress_dd": 0.1
+    }
+  },
+  "authority": "This policy only PROPOSES actions. sp05_risk.RiskController has final authority over execution.",
+  "risk_limits": {
+    "allow_short": true,
+    "max_position_fraction": 0.1,
+    "max_gross_exposure": 0.6,
+    "position_stop_loss": 0.05,
+    "max_holding_bars": 120,
+    "halt_drawdown": 0.08,
+    "flatten_drawdown": 0.15,
+    "recent_loss_halt": 0.06,
+    "max_vol_percentile": 0.9,
+    "max_abs_gap_atr": 3.0,
+    "max_abnormal_ret_z": 4.0,
+    "market_stress_dd": 0.12,
+    "min_entry_confidence": 0.5
+  },
+  "execution_convention": "decision at close of bar t, fill at open of bar t+1",
+  "shared_schema": {
+    "n_shared_sequence_features": 30,
+    "n_risk_features": 13,
+    "n_shared_static_features": 8,
+    "n_portfolio_static_extras": 4,
+    "adapter": "sp05_features.RiskFeatureAdapter"
+  },
+  "data": {
+    "dataset": "indian-market-historical-ohlcv.csv",
+    "symbols": [
+      "RELIANCE",
+      "TCS",
+      "HDFCBANK",
+      "INFY",
+      "ICICIBANK",
+      "HINDUNILVR",
+      "ITC",
+      "SBIN",
+      "BHARTIARTL",
+      "KOTAKBANK",
+      "LT",
+      "AXISBANK",
+      "TITAN",
+      "TATASTEEL",
+      "SUNPHARMA",
+      "WIPRO"
+    ],
+    "benchmark": "NIFTY 50",
+    "train_end": "2021-10-26",
+    "val_end": "2023-03-28",
+    "source": "Indian Market Historical OHLCV (split/dividend adjusted)"
+  },
+  "training": {
+    "epochs": 40,
+    "batch_size": 512,
+    "lr": 0.001,
+    "weight_decay": 0.0001,
+    "patience": 7,
+    "grad_clip": 1.0,
+    "input_noise_std": 0.02,
+    "max_class_weight": 20.0,
+    "scaler_clip": 5.0,
+    "checkpoint_every": 5,
+    "seed": 42,
+    "best_epoch": 33,
+    "epochs_completed": 40,
+    "training_duration_seconds": 99.14,
+    "class_weights": [
+      0.7505185008049011,
+      17.153980255126953,
+      26.63385772705078,
+      0.6200208067893982
+    ],
+    "n_train_samples": 151536
+  },
+  "intended_use": "research and paper trading only; not financial advice"
+}

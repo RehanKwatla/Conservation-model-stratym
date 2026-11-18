@@ -1,0 +1,47 @@
+{
+  "seed": 42,
+  "split_method": "chronological_strict_window_isolation",
+  "strict_window_isolation": true,
+  "seq_len": 30,
+  "total_samples": 208188,
+  "development_percentage": 80.28,
+  "test_percentage": 19.72,
+  "splits": {
+    "train": {
+      "n_samples": 151536,
+      "percentage": 72.79,
+      "start_date": "2009-01-05",
+      "end_date": "2021-10-26",
+      "class_counts": {
+        "HOLD": 67220,
+        "BUY": 2941,
+        "SELL": 7,
+        "EXIT": 81368
+      }
+    },
+    "val": {
+      "n_samples": 15600,
+      "percentage": 7.49,
+      "start_date": "2021-12-09",
+      "end_date": "2023-03-28",
+      "class_counts": {
+        "HOLD": 6965,
+        "BUY": 201,
+        "SELL": 1,
+        "EXIT": 8433
+      }
+    },
+    "test": {
+      "n_samples": 41052,
+      "percentage": 19.72,
+      "start_date": "2023-05-16",
+      "end_date": "2026-10-23",
+      "class_counts": {
+        "HOLD": 18417,
+        "BUY": 598,
+        "SELL": 3,
+        "EXIT": 22034
+      }
+    }
+  }
+}
