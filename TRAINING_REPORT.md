@@ -118,3 +118,4 @@
   - `sp05_conservative_artifacts/figures/confusion_matrix.png`
   - `sp05_conservative_artifacts/figures/backtest_equity.png`
 - **Inference Script:** `predict.py` (verified on both CUDA and CPU with zero dependency on `indian-market-historical-ohlcv.csv`).
+
